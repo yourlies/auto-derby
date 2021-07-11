@@ -9,7 +9,7 @@ from .context import Context
 
 def recognize_skills(img: PIL.Image.Image) -> int:
     rp = mathtools.ResizeProxy(img.width)
-    t, b = 320, 360
+    t, b = 301, 340
     crop_img = img.crop(rp.vector4((18, t, 300, b), 466))
     cv_img = imagetools.cv_image(crop_img.convert("L"))
     cv_img = imagetools.level(
