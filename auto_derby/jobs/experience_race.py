@@ -13,10 +13,14 @@ import cast_unknown as cast
 experience_skills = {
     "貴顕の使命を果たすべく": True,
     "注目の踊り子": True,
-    "左回": True,
+    "左回り": True,
     "東京レース場": True,
     "弧線のプロフェッサー": True,
-    "弧線のプロフェサー": True
+    "弧線のプロフェ  サー": True,
+    "直線巧者": True,
+    "先駆け": True,
+    "急ぎ足": True,
+    "非根幹距離": True
 }
 
 LOGGER = logging.getLogger(__name__)
@@ -34,93 +38,123 @@ _RACE_DETAIL_BUTTON = template.Specification(
 expericence_races = {
     "r1 11 2": {
         "name": "京都ジュニアステークス",
+        "learn": False
     },
     "r1 12 2": {
         "name": "ホープフルステークス",
+        "learn": True
     },
     "r2 1 1": {
         "name": "京成杯",
+        "learn": False
     },
     "r2 3 1": {
         "name": "弥生賞",
+        "learn": False
     },
     "r2 4 1": {
         "name": "皐月賞",
+        "learn": True
     },
     "r2 5 1": {
         "name": "京都新聞杯",
+        "learn": True
     },
     "r2 5 2": {
         "name": "東京優駿（日本ダービー）",
+        "learn": True
     },
     "r2 6 2": {
         "name": "宝塚記念",
+        "learn": False
     },
     "r2 7 1": {
         "name": "七夕賞",
+        "learn": False
     },
     "r2 9 1": {
         "name": "紫苑ステークス",
+        "learn": False
     },
     "r2 9 2": {
         "name": "神戸新聞杯",
+        "learn": False
     },
     "r2 10 2": {
         "name": "菊花賞",
+        "learn": False
     },
     "r2 11 1": {
         "name": "エリザベス女王杯",
+        "learn": False
     },
     "r2 12 1": {
         "name": "中日新聞杯",
+        "learn": False
     },
     "r2 12 2": {
         "name": "有馬記念",
+        "learn": False
     },
     "r3 1 2": {
         "name": "アメリカJCC",
+        "learn": False
     },
     "r3 2 1": {
         "name": "京都記念",
+        "learn": False
     },
     "r3 3 1": {
         "name": "金鯱賞",
+        "learn": True
     },
     "r3 3 2": {
         "name": "大阪杯",
+        "learn": False
     },
     "r3 4 2": {
         "name": "天皇賞春",
+        "learn": False
     },
     "r3 5 1": {
         "name": "新潟大賞典",
+        "learn": False
     },
     "r3 6 1": {
         "name": "鳴尾記念",
+        "learn": False
     },
     "r3 6 2": {
         "name": "宝塚記念",
+        "learn": True
     },
     "r3 8 2": {
         "name": "札幌記念",
+        "learn": False
     },
     "r3 9 1": {
         "name": "新潟記念",
+        "learn": False
     },
     "r3 10 1": {
         "name": "京都大賞典",
+        "learn": True
     },
     "r3 10 2": {
         "name": "天皇賞（秋）",
+        "learn": False
     },
     "r3 11 2": {
         "name": "ジャパンカップ",
+        "learn": False
     },
     "r3 12 1": {
         "name": "チャレンジカップ",
+        "learn": False
     },
     "r3 12 2": {
         "name": "有馬記念",
+        "learn": False
     },
 }
 
@@ -166,9 +200,9 @@ def _choose_skill(ctx: Context) -> None:
         action.tap(rp.vector2((280, 780), 466))
         time.sleep(0.2)
         action.tap(rp.vector2((280, 780), 466))
-        time.sleep(0.2)
-        action.tap(rp.vector2((280, 480), 466))
-        time.sleep(0.2)
+        time.sleep(0.8)
+        action.tap(rp.vector2((80, 780), 466))
+        time.sleep(0.8)
         action.tap(rp.vector2((80, 780), 466))
         break
 
@@ -468,10 +502,11 @@ def experience_race():
             has_race = expericence_races.setdefault(dictIndex)
 
             if has_race:
-                if year == 2 and month == 5 and half == 1:
+                if has_race['learn']:
                     action.wait_tap_image(
                         templates.SINGLE_MODE_COMMAND_SKILL)
                     _choose_skill(ctx)
+
                 races_with_score = sorted(
                     ((i, i.score(ctx)) for i in race.find(ctx)),
                     key=lambda x: x[1],

@@ -9,6 +9,7 @@ from .context import Context
 from typing import Dict, Tuple, Type
 from PIL.Image import fromarray as image_from_array
 from .. import action, template, templates, imagetools
+import time
 
 
 def recognize_skills(img: PIL.Image.Image, skills: dict) -> bool:
@@ -16,6 +17,17 @@ def recognize_skills(img: PIL.Image.Image, skills: dict) -> bool:
     skill_name_img = img.crop(rp.vector4((18, 301, 300, 340), 466))
     skill_point_img = img.crop(rp.vector4((360, 342, 400, 365), 466))
     skill_remain_point_img = img.crop(rp.vector4((350, 260, 400, 285), 466))
+
+    cv_img = imagetools.cv_image(skill_remain_point_img.convert("L"))
+    cv_img = imagetools.level(
+        cv_img, np.percentile(cv_img, 1), np.percentile(cv_img, 90)
+    )
+    _, binary_img = cv2.threshold(cv_img, 50, 255, cv2.THRESH_BINARY_INV)
+    text = ocr.text(imagetools.pil_image(binary_img))
+    remain = int(text)
+
+    if (remain < 150):
+        return False
 
     cv_img = imagetools.cv_image(skill_name_img.convert("L"))
     cv_img = imagetools.level(
@@ -41,16 +53,6 @@ def recognize_skills(img: PIL.Image.Image, skills: dict) -> bool:
     text = ocr.text(imagetools.pil_image(binary_img))
     point = int(text)
 
-    cv_img = imagetools.cv_image(skill_remain_point_img.convert("L"))
-    cv_img = imagetools.level(
-        cv_img, np.percentile(cv_img, 1), np.percentile(cv_img, 90)
-    )
-    _, binary_img = cv2.threshold(cv_img, 50, 255, cv2.THRESH_BINARY_INV)
-    text = ocr.text(imagetools.pil_image(binary_img))
-    remain = int(text)
-
-    if (remain < point):
-        return False
     if skills.setdefault(name):
         action.tap(rp.vector2((420, 355), 466))
     return True
