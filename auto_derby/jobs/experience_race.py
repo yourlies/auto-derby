@@ -7,7 +7,7 @@ import time
 from typing import List, Optional
 
 from .. import action, template, templates, imagetools
-from ..single_mode import Context, Genetraining, choice, race
+from ..single_mode import Context, Genetraining, choice, race, skill
 import cast_unknown as cast
 
 
@@ -137,40 +137,27 @@ def _is_race_list_scroll_to_top() -> bool:
 
 def _choose_skill(ctx: Context) -> None:
     rp = action.resize_proxy()
-    dp = -53
-    dd = 1.8
     action.swipe(
         rp.vector2((100, 600), 466),
         dy=rp.vector(-5, 466),
         duration=0.2,
     )
-    time.sleep(dd)  # wait animation
+    time.sleep(2)  # wait animation
     action.swipe(
         rp.vector2((100, 600), 466),
-        dy=rp.vector(dp, 466),
+        dy=rp.vector(-53, 466),
         duration=0.2,
     )
-    time.sleep(dd)  # wait animation
+    time.sleep(2)  # wait animation
     action.swipe(
         rp.vector2((100, 600), 466),
-        dy=rp.vector(dp, 466),
+        dy=rp.vector(-53, 466),
         duration=0.2,
     )
-    time.sleep(dd)  # wait animation
-    action.swipe(
-        rp.vector2((100, 600), 466),
-        dy=rp.vector(dp, 466),
-        duration=0.2,
-    )
-    time.sleep(dd)  # wait animation
-    action.swipe(
-        rp.vector2((100, 600), 466),
-        dy=rp.vector(dp, 466),
-        duration=0.2,
-    )
-    time.sleep(dd)  # wait animation
-    # skill.recognize_skills(template.screenshot())
-    action.tap(rp.vector2((420, 355), 466))
+    time.sleep(2)  # wait animation
+
+    skill.recognize_skills(template.screenshot())
+    # action.tap(rp.vector2((420, 355), 466))
 
 
 def _choose_race(ctx: Context, race1: race.Race) -> None:

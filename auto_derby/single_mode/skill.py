@@ -4,14 +4,19 @@ import cv2
 import numpy as np
 import PIL.Image
 import PIL.ImageOps
+from PIL.Image import Image
 from .context import Context
+from typing import Dict, Tuple, Type
+from PIL.Image import fromarray as image_from_array
 
 
 def recognize_skills(img: PIL.Image.Image) -> int:
     rp = mathtools.ResizeProxy(img.width)
-    t, b = 301, 340
-    crop_img = img.crop(rp.vector4((18, t, 300, b), 466))
-    cv_img = imagetools.cv_image(crop_img.convert("L"))
+    skill_name_img = img.crop(rp.vector4((18, 301, 300, 340), 466))
+    skill_point_img = img.crop(rp.vector4((360, 344, 400, 365), 466))
+
+    cv_img = skill_name_img
+    cv_img = imagetools.cv_image(cv_img.convert("L"))
     cv_img = imagetools.level(
         cv_img, np.percentile(cv_img, 1), np.percentile(cv_img, 90)
     )
