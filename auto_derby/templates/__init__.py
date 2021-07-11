@@ -90,6 +90,10 @@ SINGLE_MODE_COMMAND_HEALTH_CARE = "single_mode_command_health_care.png"
 SINGLE_MODE_COMMAND_HEALTH_CARE_POS = "single_mode_command_health_care.pos.png"
 SINGLE_MODE_COMMAND_RACE = "single_mode_command_race.png"
 SINGLE_MODE_COMMAND_RACE_POS = "single_mode_command_race.pos.png"
+
+SINGLE_MODE_COMMAND_SKILL = "single_mode_command_skill.png"
+
+
 SINGLE_MODE_COMMAND_SUMMER_REST = "single_mode_command_summer_rest.png"
 SINGLE_MODE_COMMAND_SUMMER_REST_POS = "single_mode_command_summer_rest.pos.png"
 SINGLE_MODE_COMMAND_TRAINING = "single_mode_command_training.png"

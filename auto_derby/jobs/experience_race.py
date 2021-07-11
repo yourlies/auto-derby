@@ -7,7 +7,7 @@ import time
 from typing import List, Optional
 
 from .. import action, template, templates, imagetools
-from ..single_mode import Context, Genetraining, choice, race
+from ..single_mode import Context, Genetraining, choice, race, skill
 import cast_unknown as cast
 
 
@@ -133,6 +133,11 @@ def _is_race_list_scroll_to_top() -> bool:
         imagetools.compare_color(
             (123, 121, 140), tuple(cast.list_(color, int))) > 0.9
     )
+
+
+def _choose_skill(ctx: Context) -> None:
+    time.sleep(0.2)  # wait animation
+    skill.recognize_skills(template.screenshot())
 
 
 def _choose_race(ctx: Context, race1: race.Race) -> None:
@@ -421,6 +426,13 @@ def experience_race():
             ctx.next_turn()
             LOGGER.info("update context: %s", ctx)
             ctx.next_turn()
+
+            LOGGER.info("update pause: %s", ctx)
+            action.wait_tap_image(
+                templates.SINGLE_MODE_COMMAND_SKILL)
+
+            _choose_skill(ctx)
+            return False
             year = ctx.date[0]
             month = ctx.date[1]
             half = ctx.date[2]
