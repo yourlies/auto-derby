@@ -323,7 +323,8 @@ def _handle_race(ctx: Context, race1: Optional[race.Race] = None):
         action.tap(pos)
     ctx.race_turns.add(ctx.turn_count())
 
-    _choose_running_style(ctx, race1)
+    if (ctx.date[1] < 12) and (ctx.date[0] == 1):
+        _choose_running_style(ctx, race1)
 
     _handle_race_result()
     ctx.fan_count = 0  # request update in next turn
