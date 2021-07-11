@@ -6,7 +6,7 @@ import logging
 import time
 from typing import List, Optional
 
-from .. import action, template, templates, window, config, imagetools
+from .. import action, template, templates, imagetools
 from ..single_mode import Context, Genetraining, choice, race
 import cast_unknown as cast
 
@@ -311,12 +311,6 @@ def _choose_running_style(ctx: Context, race1: race.Race) -> None:
 
 def _handle_race(ctx: Context, race1: Optional[race.Race] = None):
     race1 = race1 or _current_race(ctx)
-    estimate_order = race1.estimate_order(ctx)
-    if estimate_order > config.pause_if_race_order_gt:
-        window.pause(
-            "Race estimate result is No.%d\nplease learn skills before confirm in terminal"
-            % estimate_order
-        )
 
     while True:
         tmpl, pos = action.wait_image(
