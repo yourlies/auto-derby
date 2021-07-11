@@ -10,6 +10,14 @@ from .. import action, template, templates, imagetools
 from ..single_mode import Context, Genetraining, choice, race, skill
 import cast_unknown as cast
 
+experience_skills = {
+    "貴顕の使命を果たすべく": True,
+    "注目の踊り子": True,
+    "左回": True,
+    "東京レース場": True,
+    "弧線のプロフェッサー": True,
+    "弧線のプロフェサー": True
+}
 
 LOGGER = logging.getLogger(__name__)
 
@@ -142,22 +150,27 @@ def _choose_skill(ctx: Context) -> None:
         dy=rp.vector(-5, 466),
         duration=0.2,
     )
-    time.sleep(2)  # wait animation
-    action.swipe(
-        rp.vector2((100, 600), 466),
-        dy=rp.vector(-53, 466),
-        duration=0.2,
-    )
-    time.sleep(2)  # wait animation
-    action.swipe(
-        rp.vector2((100, 600), 466),
-        dy=rp.vector(-53, 466),
-        duration=0.2,
-    )
-    time.sleep(2)  # wait animation
-
-    skill.recognize_skills(template.screenshot())
-    # action.tap(rp.vector2((420, 355), 466))
+    time.sleep(5)
+    while True:
+        action.swipe(
+            rp.vector2((100, 600), 466),
+            dy=rp.vector(-53, 466),
+            duration=0.2,
+        )
+        time.sleep(5)
+        s = skill.recognize_skills(template.screenshot(), experience_skills)
+        if s:
+            continue
+        action.tap(rp.vector2((220, 680), 466))
+        time.sleep(0.2)
+        action.tap(rp.vector2((280, 780), 466))
+        time.sleep(0.2)
+        action.tap(rp.vector2((280, 780), 466))
+        time.sleep(0.2)
+        action.tap(rp.vector2((280, 480), 466))
+        time.sleep(0.2)
+        action.tap(rp.vector2((80, 780), 466))
+        break
 
 
 def _choose_race(ctx: Context, race1: race.Race) -> None:
@@ -447,19 +460,18 @@ def experience_race():
             LOGGER.info("update context: %s", ctx)
             ctx.next_turn()
 
-            LOGGER.info("update pause: %s", ctx)
-            action.wait_tap_image(
-                templates.SINGLE_MODE_COMMAND_SKILL)
-
-            _choose_skill(ctx)
-            return False
             year = ctx.date[0]
             month = ctx.date[1]
             half = ctx.date[2]
             dictIndex = "r" + str(year) + " " + str(month) + " " + str(half)
 
             has_race = expericence_races.setdefault(dictIndex)
+
             if has_race:
+                if year == 2 and month == 5 and half == 1:
+                    action.wait_tap_image(
+                        templates.SINGLE_MODE_COMMAND_SKILL)
+                    _choose_skill(ctx)
                 races_with_score = sorted(
                     ((i, i.score(ctx)) for i in race.find(ctx)),
                     key=lambda x: x[1],
