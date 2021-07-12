@@ -170,3 +170,6 @@ TEAM_RACE_LOSE = "team_race_lose.png"
 TEAM_RACE_NEXT_BUTTON = "team_race_next_button.png"
 TEAM_RACE_RESULT_BUTTON = "team_race_result_button.png"
 TEAM_RACE_WIN = "team_race_win.png"
+
+
+SKILL_YELLOW_SPEED = "skill_yellow_speed.png"

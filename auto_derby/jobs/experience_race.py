@@ -20,7 +20,15 @@ experience_skills = {
     "直線巧者": True,
     "先駆け": True,
     "急ぎ足": True,
-    "非根幹距離": True
+    ",左回り": True,
+    "非根幹距離": True,
+    "コーナー巧者": True,
+    "ポジションセンス": True,
+    "集中力": True,
+    ",ピュ  ティォプ  ート": True,
+    ",ピュ  ティォブハート": True,
+    ",ビュ  ティォプハート": True,
+    "徹底マーク": True
 }
 
 LOGGER = logging.getLogger(__name__)
@@ -42,7 +50,7 @@ expericence_races = {
     },
     "r1 12 2": {
         "name": "ホープフルステークス",
-        "learn": True
+        "learn": False
     },
     "r2 1 1": {
         "name": "京成杯",
@@ -54,15 +62,15 @@ expericence_races = {
     },
     "r2 4 1": {
         "name": "皐月賞",
-        "learn": True
+        "learn": False
     },
     "r2 5 1": {
         "name": "京都新聞杯",
-        "learn": True
+        "learn": False
     },
     "r2 5 2": {
         "name": "東京優駿（日本ダービー）",
-        "learn": True
+        "learn": False
     },
     "r2 6 2": {
         "name": "宝塚記念",
@@ -106,7 +114,7 @@ expericence_races = {
     },
     "r3 3 1": {
         "name": "金鯱賞",
-        "learn": True
+        "learn": False
     },
     "r3 3 2": {
         "name": "大阪杯",
@@ -126,7 +134,7 @@ expericence_races = {
     },
     "r3 6 2": {
         "name": "宝塚記念",
-        "learn": True
+        "learn": False
     },
     "r3 8 2": {
         "name": "札幌記念",
@@ -138,7 +146,7 @@ expericence_races = {
     },
     "r3 10 1": {
         "name": "京都大賞典",
-        "learn": True
+        "learn": False
     },
     "r3 10 2": {
         "name": "天皇賞（秋）",
@@ -500,6 +508,9 @@ def experience_race():
             dictIndex = "r" + str(year) + " " + str(month) + " " + str(half)
 
             has_race = expericence_races.setdefault(dictIndex)
+
+            action.wait_tap_image(templates.SINGLE_MODE_COMMAND_SKILL)
+            _choose_skill(ctx)
 
             if has_race:
                 if has_race['learn']:
