@@ -1,19 +1,70 @@
+# -*- coding=UTF-8 -*-
+# pyright: strict
+
 from .. import imagetools, mathtools, ocr, template, templates
-import os
 import cv2
 import numpy as np
 import PIL.Image
 import PIL.ImageOps
-from PIL.Image import Image
-from .context import Context
-from typing import Dict, Tuple, Type
-from PIL.Image import fromarray as image_from_array
-from .. import action, template, templates, imagetools
-import time
+from typing import Dict
+from .. import action, template, templates, imagetools, terminal
+from typing import Dict, Text
+import os
+import json
 
 
-def recognize_skills(img: PIL.Image.Image, skills: dict) -> bool:
+class gv:
+    skill_path: str = os.getenv("AUTO_DERBY_OCR_SKILL_PATH", "ocr_skills.json")
+    labels: Dict[Text, Text] = {}
+
+
+def reload() -> None:
+    try:
+        with open(gv.skill_path, "r", encoding="utf-8") as f:
+            gv.labels = json.load(f)
+    except OSError:
+        pass
+
+
+def _save() -> None:
+    with open(gv.skill_path, "w", encoding="utf-8") as f:
+        json.dump(gv.labels, f, indent=2, ensure_ascii=False)
+
+
+hash_skills = {
+    "貴顕の使命を果たすべく": True
+}
+
+
+def recognize_skills(img: PIL.Image.Image) -> bool:
+    reload()
     rp = mathtools.ResizeProxy(img.width)
+    r = template.match(
+        img,
+        template.Specification(
+            templates.SKILL_ITEM, threshold=0.8
+        ),
+    )
+    for _ in r:
+        x, y = _[1]
+        skill_name_img = img.crop((x - 400, y + 2, x - 130, y + 33))
+        image_hash = imagetools.image_hash(skill_name_img)
+        is_save_skill_label = False
+        for skill_label in gv.labels:
+            rate = imagetools.compare_hash(image_hash, skill_label)
+            if rate > 0.99:
+                is_save_skill_label = True
+                print(gv.labels[skill_label])
+                break
+        if not is_save_skill_label:
+            close_img = imagetools.show(skill_name_img)
+            ans = terminal.prompt(
+                "Corresponding text for current displaying image:")
+            gv.labels[image_hash] = ans
+            close_img()
+            _save()
+    return True
+
     skill_name_img = img.crop(rp.vector4((18, 301, 300, 340), 466))
     skill_point_img = img.crop(rp.vector4((360, 342, 400, 365), 466))
     skill_remain_point_img = img.crop(rp.vector4((350, 260, 400, 285), 466))

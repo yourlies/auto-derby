@@ -10,27 +10,6 @@ from .. import action, template, templates, imagetools
 from ..single_mode import Context, Genetraining, choice, race, skill
 import cast_unknown as cast
 
-experience_skills = {
-    "貴顕の使命を果たすべく": True,
-    "注目の踊り子": True,
-    "左回り": True,
-    "東京レース場": True,
-    "弧線のプロフェッサー": True,
-    "弧線のプロフェ  サー": True,
-    "直線巧者": True,
-    "先駆け": True,
-    "急ぎ足": True,
-    ",左回り": True,
-    "非根幹距離": True,
-    "コーナー巧者": True,
-    "ポジションセンス": True,
-    "集中力": True,
-    ",ピュ  ティォプ  ート": True,
-    ",ピュ  ティォブハート": True,
-    ",ビュ  ティォプハート": True,
-    "徹底マーク": True
-}
-
 LOGGER = logging.getLogger(__name__)
 
 
@@ -187,20 +166,14 @@ def _is_race_list_scroll_to_top() -> bool:
 
 def _choose_skill(ctx: Context) -> None:
     rp = action.resize_proxy()
-    action.swipe(
-        rp.vector2((100, 600), 466),
-        dy=rp.vector(-5, 466),
-        duration=0.2,
-    )
-    time.sleep(5)
     while True:
+        s = skill.recognize_skills(template.screenshot())
         action.swipe(
-            rp.vector2((100, 600), 466),
-            dy=rp.vector(-53, 466),
+            (100, 600),
+            dy=-50,
             duration=0.2,
         )
-        time.sleep(5)
-        s = skill.recognize_skills(template.screenshot(), experience_skills)
+        time.sleep(3)
         if s:
             continue
         action.tap(rp.vector2((220, 680), 466))
@@ -511,7 +484,7 @@ def experience_race():
 
             action.wait_tap_image(templates.SINGLE_MODE_COMMAND_SKILL)
             _choose_skill(ctx)
-
+            return False
             if has_race:
                 if has_race['learn']:
                     action.wait_tap_image(

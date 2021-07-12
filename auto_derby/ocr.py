@@ -19,6 +19,7 @@ LOGGER = logging.getLogger(__name__)
 class g:
     data_path: str = ""
     image_path: str = ""
+    skill_path: str = ""
 
     labels: Dict[Text, Text] = {}
 
@@ -72,7 +73,8 @@ def _text_from_image(img: np.ndarray, threshold: float = 0.8) -> Text:
     close_img = imagetools.show(fromarray(_pad_img(img)), h)
     try:
         while len(ans) != 1:
-            ans = terminal.prompt("Corresponding text for current displaying image:")
+            ans = terminal.prompt(
+                "Corresponding text for current displaying image:")
         g.labels[h] = ans
         LOGGER.info("labeled: hash=%s, value=%s", h, ans)
     finally:
@@ -140,7 +142,8 @@ def text(img: Image, *, threshold: float = 0.8) -> Text:
     cv_img = np.asarray(img.convert("L"))
     _, binary_img = cv2.threshold(cv_img, 0, 255, cv2.THRESH_OTSU)
 
-    contours, _ = cv2.findContours(binary_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    contours, _ = cv2.findContours(
+        binary_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
     if len(contours) == 0:
         LOGGER.debug("ocr result is empty")

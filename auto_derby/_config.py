@@ -39,16 +39,20 @@ def _parse_training_levels(spec: Text) -> Dict[int, int]:
 
 class config:
     LOG_PATH = os.getenv("AUTO_DERBY_LOG_PATH", "auto_derby.log")
-    PLUGINS = tuple(i for i in os.getenv("AUTO_DERBY_PLUGINS", "").split(",") if i)
+    PLUGINS = tuple(i for i in os.getenv(
+        "AUTO_DERBY_PLUGINS", "").split(",") if i)
     ADB_ADDRESS = os.getenv("AUTO_DERBY_ADB_ADDRESS", "")
 
     single_mode_race_data_path = os.getenv(
         "AUTO_DERBY_SINGLE_MODE_RACE_DATA_PATH", "single_mode_races.json"
     )
     ocr_data_path = os.getenv("AUTO_DERBY_OCR_LABEL_PATH", "ocr_labels.json")
+    ocr_skill_path = os.getenv("AUTO_DERBY_OCR_SKILL_PATH", "ocr_skills.json")
     ocr_image_path = os.getenv("AUTO_DERBY_OCR_IMAGE_PATH", "")
-    last_screenshot_save_path = os.getenv("AUTO_DERBY_LAST_SCREENSHOT_SAVE_PATH", "")
-    pause_if_race_order_gt = int(os.getenv("AUTO_DERBY_PAUSE_IF_RACE_ORDER_GT", "5"))
+    last_screenshot_save_path = os.getenv(
+        "AUTO_DERBY_LAST_SCREENSHOT_SAVE_PATH", "")
+    pause_if_race_order_gt = int(
+        os.getenv("AUTO_DERBY_PAUSE_IF_RACE_ORDER_GT", "5"))
     single_mode_event_image_path = os.getenv(
         "AUTO_DERBY_SINGLE_MODE_EVENT_IMAGE_PATH", ""
     )
@@ -67,7 +71,7 @@ class config:
     )
     adb_key_path = os.getenv("AUTO_DERBY_ADB_KEY_PATH", ADBClient.key_path)
 
-    on_limited_sale = lambda: terminal.pause(
+    def on_limited_sale(): return terminal.pause(
         "Please handle limited shop manually before confirm in terminal.\n"
         "You can also try `limited_sale_buy_everything` plugin."
     )
@@ -81,6 +85,7 @@ class config:
     def apply(cls) -> None:
         ADBClient.key_path = cls.adb_key_path
         ocr.g.data_path = cls.ocr_data_path
+        ocr.g.skill_path = cls.ocr_skill_path
         ocr.g.image_path = cls.ocr_image_path
         plugin.g.path = cls.plugin_path
         single_mode.choice.g.data_path = cls.single_mode_choice_path
