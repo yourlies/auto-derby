@@ -23,7 +23,15 @@ skills = {
     "非根幹距離": True,
     "道悪": True,
     "長距離コーナー": True,
-    "先頭プライド": True
+    "先頭プライド": True,
+    "ポジションセンス": True,
+    "左回": True,
+    "晴れの日": True,
+    "外枠得意": True,
+    "徹底マーク": True,
+    "コーナー回復": True,
+    "弧線のプロフェッサー": True,
+    "注目の踊り子": True
 }
 
 
@@ -47,12 +55,19 @@ def _save() -> None:
 
 def recognize_skills(img: PIL.Image.Image) -> bool:
     reload()
-    r = template.match(
+    nr = template.match(
         img,
         template.Specification(
             templates.SKILL_ITEM, threshold=0.8
         ),
     )
+    gr = template.match(
+        img,
+        template.Specification(
+            templates.SKILL_ITEM_GOLD, threshold=0.8
+        ),
+    )
+    r = (*nr, *gr)
     for match in r:
         x, y = match[1]
 
@@ -97,7 +112,9 @@ def recognize_skills(img: PIL.Image.Image) -> bool:
                 skill_name = gv.labels[skill_label]
                 if skills.setdefault(skill_name) and remain > point:
                     action.tap((x - 20, y + 52))
-                break
+                    print(skill_name, skill_label)
+                    break
+                print('not learn or not needed', skill_name)
         if not is_save_skill_label:
             close_img = imagetools.show(skill_name_img)
             ans = terminal.prompt(
@@ -105,6 +122,7 @@ def recognize_skills(img: PIL.Image.Image) -> bool:
             if skills.setdefault(ans) and remain > point:
                 action.tap((x - 20, y + 52))
             gv.labels[image_hash] = ans
+            print('not learn or not needed', ans)
             close_img()
             _save()
 

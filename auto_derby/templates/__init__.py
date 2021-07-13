@@ -174,4 +174,5 @@ TEAM_RACE_WIN = "team_race_win.png"
 
 SKILL_YELLOW_SPEED = "skill_yellow_speed.png"
 SKILL_ITEM = "skill_item.png"
+SKILL_ITEM_GOLD = "skill_item_gold.png"
 SKILL_SCROLL_TO_END = "skill_scroll_to_end.png"
