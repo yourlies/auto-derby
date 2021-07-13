@@ -22,10 +22,11 @@ _RACE_DETAIL_BUTTON = template.Specification(
     templates.SINGLE_MODE_RACE_DETAIL_BUTTON, threshold=0.8
 )
 
+
 expericence_races = {
     "r1 11 2": {
         "name": "京都ジュニアステークス",
-        "learn": False
+        "learn": True
     },
     "r1 12 2": {
         "name": "ホープフルステークス",
@@ -37,7 +38,7 @@ expericence_races = {
     },
     "r2 3 1": {
         "name": "弥生賞",
-        "learn": False
+        "learn": True
     },
     "r2 4 1": {
         "name": "皐月賞",
@@ -45,7 +46,7 @@ expericence_races = {
     },
     "r2 5 1": {
         "name": "京都新聞杯",
-        "learn": False
+        "learn": True
     },
     "r2 5 2": {
         "name": "東京優駿（日本ダービー）",
@@ -61,7 +62,7 @@ expericence_races = {
     },
     "r2 9 1": {
         "name": "紫苑ステークス",
-        "learn": False
+        "learn": True
     },
     "r2 9 2": {
         "name": "神戸新聞杯",
@@ -93,7 +94,7 @@ expericence_races = {
     },
     "r3 3 1": {
         "name": "金鯱賞",
-        "learn": False
+        "learn": True
     },
     "r3 3 2": {
         "name": "大阪杯",
@@ -109,7 +110,7 @@ expericence_races = {
     },
     "r3 6 1": {
         "name": "鳴尾記念",
-        "learn": False
+        "learn": True
     },
     "r3 6 2": {
         "name": "宝塚記念",
@@ -125,7 +126,7 @@ expericence_races = {
     },
     "r3 10 1": {
         "name": "京都大賞典",
-        "learn": False
+        "learn": True
     },
     "r3 10 2": {
         "name": "天皇賞（秋）",
@@ -167,13 +168,13 @@ def _is_race_list_scroll_to_top() -> bool:
 def _choose_skill(ctx: Context) -> None:
     rp = action.resize_proxy()
     while True:
+        time.sleep(5)
         s = skill.recognize_skills(template.screenshot())
         action.swipe(
             (100, 600),
-            dy=-50,
+            dy=-100,
             duration=0.2,
         )
-        time.sleep(3)
         if s:
             continue
         action.tap(rp.vector2((220, 680), 466))
@@ -482,9 +483,6 @@ def experience_race():
 
             has_race = expericence_races.setdefault(dictIndex)
 
-            action.wait_tap_image(templates.SINGLE_MODE_COMMAND_SKILL)
-            _choose_skill(ctx)
-            return False
             if has_race:
                 if has_race['learn']:
                     action.wait_tap_image(
