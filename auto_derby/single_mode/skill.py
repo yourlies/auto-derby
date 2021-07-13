@@ -31,7 +31,11 @@ skills = {
     "徹底マーク": True,
     "コーナー回復": True,
     "弧線のプロフェッサー": True,
-    "注目の踊り子": True
+    "注目の踊り子": True,
+    "集中力": True,
+    "東京レース場": True,
+    "阪神レース場": True,
+    "臨機応変": True
 }
 
 
@@ -102,7 +106,7 @@ def recognize_skills(img: PIL.Image.Image) -> bool:
         point = int(text)
         if not point or remain < point:
             continue
-        skill_name_img = img.crop((x - 400, y + 2, x - 130, y + 33))
+        skill_name_img = img.crop((x - 400, y + 2, x - 130, y + 92))
         image_hash = imagetools.image_hash(skill_name_img)
         is_save_skill_label = False
         for skill_label in gv.labels:
