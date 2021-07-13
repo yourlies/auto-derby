@@ -164,5 +164,17 @@
   "ffffffffff3fff3fff3fff3fdf3f853f003f013f013f013f083f883fff3fff3f": "コーナー巧者",
   "0300ff3fffffffffffffffffffffe0ffc0ffc0ffc0ffc0ffe0ffe0fff9ffffff": "別腹タンク",
   "ff0fff00ff3fff3fff3fff3fff3ff93ff83ff83ff83ff83ff83ff83ff93fff3f": "束縛",
-  "0700ffffffffffffffffffffffff40ffc0ff00ff00ffc0ffc0ff40ffffffffff": "長距離コーナー"
+  "0700ffffffffffffffffffffffff40ffc0ff00ff00ffc0ffc0ff40ffffffffff": "長距離コーナー",
+  "ffffff3fffffffffffffffffffff25fd00fd00fc00fc02fc00fc00fcffffffff": "ピュリティオブハート",
+  "ffffff0fff7fff7fff7fff7fff7fe07fe07fe07fe07fe07fe07fe07fe17fff7f": "好位追走",
+  "0000ff7fffffffffffffffffffffc1ffc0ffc0ffc0ffc0ffc0ffc0ffffffffff": "食い下がり",
+  "0000ff3fff3fff3fff3fff3fff3ff03ff83ff93ff83ff83ff83ff03fff3fff3f": "道悪",
+  "ffffff01ff3fff3fff3fff3fff3ff13ff03ff93ff83ff83ff83ff03ff13fff3f": "道悪",
+  "ff03ffffffffffffffffffffffffc1ffc0ffc0ffc0ffc0ffc0ffc0ffc3ffffff": "非根幹距離",
+  "0000ff0fff3fff3fff3fff3fff3ff03ff03ff93ff83ff83ff83ff03ff93fff3f": "道悪",
+  "ffffff3fffffffffffffffffffffc1ffc0ffc0ffc0ffc0ffc0ffc0ffc1ffffff": "非根幹距離",
+  "ff07ff01ff3fff3fff3fff3fff3ff13ff03ff13ff03ff03ff03ff03ff13fff3f": "道悪",
+  "7f00ffffffffffffffffffffffffc1ffc0ffc0ffc0ffc0ffc0ffc0ffc1ffffff": "非根幹距離",
+  "0000ff07ff7fff7fff7fff7fff7ff17ff07ff17ff07ff07ff07ff07ff97fff7f": "道悪",
+  "0000ff3fff7fff7fff7fff7fff7ff07ff07ff17ff07ff07ff07ff07fff7fff7f": "道悪"
 }

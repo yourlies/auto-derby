@@ -86,7 +86,7 @@ expericence_races = {
     },
     "r3 1 2": {
         "name": "アメリカJCC",
-        "learn": False
+        "learn": True
     },
     "r3 2 1": {
         "name": "京都記念",
