@@ -168,12 +168,12 @@ def _is_race_list_scroll_to_top() -> bool:
 def _choose_skill(ctx: Context) -> None:
     rp = action.resize_proxy()
     while True:
-        time.sleep(5)
+        time.sleep(2)
         s = skill.recognize_skills(template.screenshot())
         action.swipe(
             (100, 600),
             dy=-100,
-            duration=0.2,
+            duration=0.4,
         )
         if s:
             continue
@@ -488,6 +488,7 @@ def experience_race():
                     action.wait_tap_image(
                         templates.SINGLE_MODE_COMMAND_SKILL)
                     _choose_skill(ctx)
+                    return False
 
                 races_with_score = sorted(
                     ((i, i.score(ctx)) for i in race.find(ctx)),
