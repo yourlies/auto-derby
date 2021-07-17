@@ -35,7 +35,29 @@ skills = {
     "集中力": True,
     "東京レース場": True,
     "阪神レース場": True,
-    "臨機応変": True
+    "新潟レース場": True,
+    "汝、皇帝の神威を見よ": True,
+    "臨機応変": True,
+    "末脚": True,
+    "直線巧者": True,
+    "外枠得意": True,
+    "曇りの日": True,
+    "春ウマ娘": True,
+    "直線加速": True,
+    "冬ウマ娘": True,
+    "秋ウマ娘": True,
+    "夏ウマ娘": True,
+    "根幹距離": True,
+    "危険回避": True,
+    "長距離直線": True,
+    "対抗意識": True,
+    "直線回復": True,
+    "末脚": True,
+    "右回": True,
+    "円弧のマエストロ": True,
+    "急ぎ足": True,
+    "先駆け": True,
+    "ハヤテ一文字": True
 }
 
 
@@ -111,7 +133,7 @@ def recognize_skills(img: PIL.Image.Image) -> bool:
         is_save_skill_label = False
         for skill_label in gv.labels:
             rate = imagetools.compare_hash(image_hash, skill_label)
-            if rate > 0.99:
+            if rate > 0.90:
                 is_save_skill_label = True
                 skill_name = gv.labels[skill_label]
                 if skills.setdefault(skill_name) and remain > point:

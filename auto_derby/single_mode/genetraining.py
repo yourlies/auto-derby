@@ -299,6 +299,9 @@ class Genetraining:
             spd *= 0.7
             pow *= 0.7
 
+        if (ctx.stamina > 650):
+            sta = 0
+
         if (ctx.power > 600):
             pow = 0
 

@@ -359,7 +359,7 @@ def _choose_running_style(ctx: Context, race1: race.Race) -> None:
 
     _, pos = action.wait_image(templates.RACE_CONFIRM_BUTTON)
     time.sleep(0.5)
-    action.tap(style_scores[0][2])
+    action.tap(button_pos[3])
     action.tap(pos)
 
 
